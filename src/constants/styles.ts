@@ -224,3 +224,38 @@ export const CARD_STYLES = {
   hover: `${COLORS.background.card} border border-background-border ${BORDER.radius.lg} ${SHADOW.md} ${SPACING.padding.lg} ${TRANSITION.all} ${TRANSITION.duration.normal} hover:${SHADOW.lg} hover:border-primary/50`,
   gradient: `${GRADIENTS.teamitz} ${BORDER.radius.lg} ${SHADOW.md} ${SPACING.padding.lg}`,
 } as const
+
+// Auth / Login 페이지 전용 스타일
+export const AUTH_STYLES = {
+  // 전체 페이지 배경
+  pageBackground: 'bg-[#0F172A]',
+
+  // 로그인 카드
+  cardBackground: 'bg-[#1E293B]/70',
+  cardBorder: 'border-white/10',
+  cardShadow: 'shadow-2xl',
+
+  // 카드 주변 그라데이션 글로우
+  cardGlowOuter: 'bg-gradient-to-r from-[#2563EB]/10 via-transparent to-[#7C3AED]/10',
+  cardGlowInner: 'bg-gradient-to-b from-white/10 to-transparent',
+
+  // 텍스트 색상
+  textMuted: 'text-[#94A3B8]',
+  textLabel: 'text-[#F8FAFC]',
+
+  // 입력 필드
+  inputBackground: 'bg-[#0F172A]/60',
+  inputPlaceholder: 'placeholder:text-[#64748B]',
+  inputBorder: 'border-white/10',
+  inputFocus: 'focus:border-[#2563EB] focus:ring-[#2563EB]/20',
+
+  // 아이콘/보조 텍스트
+  iconMuted: 'text-[#94A3B8]',
+
+  // 링크 & 버튼
+  linkPrimary: 'text-[#2563EB]',
+  linkPrimaryHover: 'hover:text-[#3B82F6]',
+  buttonPrimary: 'bg-[#2563EB]',
+  buttonPrimaryHover: 'hover:bg-[#1D4ED8]',
+  buttonShadow: 'shadow-lg shadow-[#2563EB]/25 hover:shadow-xl hover:shadow-[#2563EB]/30',
+} as const
