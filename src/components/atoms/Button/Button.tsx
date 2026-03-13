@@ -2,7 +2,7 @@ import React from 'react'
 import { BUTTON_VARIANTS, BUTTON_SIZES, TEXT_STYLES, BORDER, TRANSITION } from '@/constants'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'accent' | 'gradient' | 'outline' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
   isLoading?: boolean
 }
@@ -21,6 +21,8 @@ const Button: React.FC<ButtonProps> = ({
   const variantStyles = {
     primary: BUTTON_VARIANTS.primary,
     secondary: BUTTON_VARIANTS.secondary,
+    accent: BUTTON_VARIANTS.accent,
+    gradient: BUTTON_VARIANTS.gradient,
     outline: BUTTON_VARIANTS.outline,
     ghost: BUTTON_VARIANTS.ghost,
   }

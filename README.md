@@ -155,12 +155,10 @@ VITE_API_BASE_URL=http://localhost:3000/api
 
 `.cursor/rules/` 디렉토리에 다음 규칙 파일들이 있습니다:
 
-- `general.mdc` - 일반적인 코딩 컨벤션 (항상 적용)
+- `general.mdc` - 일반적인 코딩 컨벤션
 - `typescript-react.mdc` - TypeScript/React 파일 규칙
 - `components.mdc` - 컴포넌트 작성 규칙
 - `stores.mdc` - Zustand 스토어 규칙
 - `api.mdc` - API 호출 규칙
 - `styling.mdc` - Tailwind CSS 스타일링 규칙
 - `commit.mdc` - 커밋 메시지 컨벤션
-
-이 규칙들은 Cursor AI가 코드를 작성할 때 자동으로 참고하여 컨벤션에 맞는 코드를 생성합니다.

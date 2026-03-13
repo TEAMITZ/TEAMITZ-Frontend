@@ -3,28 +3,38 @@
  * Tailwind CSS 클래스와 스타일 값을 상수로 관리합니다.
  */
 
-// 색상
+// 색상 - TEAMITZ Brand Color System
 export const COLORS = {
-  // Primary
+  // Primary - TEAMITZ Blue (#2563EB)
   primary: {
-    main: 'bg-blue-600',
-    hover: 'hover:bg-blue-700',
-    text: 'text-blue-600',
-    border: 'border-blue-600',
+    main: 'bg-primary',
+    hover: 'hover:bg-primary-700',
+    light: 'bg-primary-400',
+    text: 'text-primary',
+    border: 'border-primary',
   },
-  // Secondary
+  // Secondary - Innovation Purple (#7C3AED)
   secondary: {
-    main: 'bg-gray-600',
-    hover: 'hover:bg-gray-700',
-    text: 'text-gray-600',
-    border: 'border-gray-600',
+    main: 'bg-secondary',
+    hover: 'hover:bg-secondary-500',
+    light: 'bg-secondary-500',
+    text: 'text-secondary',
+    border: 'border-secondary',
   },
-  // Success
+  // Accent - Success Green (#22C55E)
+  accent: {
+    main: 'bg-accent',
+    hover: 'hover:bg-accent-400',
+    light: 'bg-accent-400',
+    text: 'text-accent',
+    border: 'border-accent',
+  },
+  // Success (Accent와 동일)
   success: {
-    main: 'bg-green-600',
-    hover: 'hover:bg-green-700',
-    text: 'text-green-600',
-    border: 'border-green-600',
+    main: 'bg-accent',
+    hover: 'hover:bg-accent-light',
+    text: 'text-accent',
+    border: 'border-accent',
   },
   // Error/Danger
   error: {
@@ -40,19 +50,28 @@ export const COLORS = {
     text: 'text-yellow-600',
     border: 'border-yellow-600',
   },
-  // Background
+  // Background - Dark Theme
   background: {
-    default: 'bg-white',
-    gray: 'bg-gray-50',
-    dark: 'bg-gray-900',
+    main: 'bg-background-main',
+    card: 'bg-background-card',
+    border: 'bg-background-border',
+    default: 'bg-background-main',
+    gray: 'bg-background-card',
+    dark: 'bg-background-main',
   },
-  // Text
+  // Text - Light colors for dark background
   text: {
-    primary: 'text-gray-900',
-    secondary: 'text-gray-600',
+    primary: 'text-text-primary',
+    secondary: 'text-text-secondary',
     disabled: 'text-gray-400',
-    white: 'text-white',
+    white: 'text-text-primary',
   },
+} as const
+
+// TEAMITZ Gradient
+export const GRADIENTS = {
+  teamitz: 'bg-teamitz-gradient',
+  teamitzText: 'bg-teamitz-gradient bg-clip-text text-transparent',
 } as const
 
 // 텍스트 스타일
@@ -173,12 +192,14 @@ export const TRANSITION = {
   },
 } as const
 
-// Button Variants
+// Button Variants - TEAMITZ Brand
 export const BUTTON_VARIANTS = {
-  primary: `${COLORS.primary.main} ${COLORS.primary.hover} ${COLORS.text.white}`,
-  secondary: `${COLORS.secondary.main} ${COLORS.secondary.hover} ${COLORS.text.white}`,
+  primary: `${COLORS.primary.main} ${COLORS.primary.hover} ${COLORS.text.white} font-semibold`,
+  secondary: `${COLORS.secondary.main} hover:bg-secondary-light ${COLORS.text.white} font-semibold`,
+  accent: `${COLORS.accent.main} ${COLORS.accent.hover} ${COLORS.text.white} font-semibold`,
+  gradient: `${GRADIENTS.teamitz} ${COLORS.text.white} font-semibold hover:opacity-90`,
   outline: `border-2 ${COLORS.primary.border} ${COLORS.primary.text} ${COLORS.primary.hover} bg-transparent`,
-  ghost: `${COLORS.text.secondary} hover:bg-gray-100`,
+  ghost: `${COLORS.text.secondary} hover:bg-background-card`,
   danger: `${COLORS.error.main} ${COLORS.error.hover} ${COLORS.text.white}`,
 } as const
 
@@ -189,14 +210,15 @@ export const BUTTON_SIZES = {
   lg: `${SPACING.padding.lg} ${TEXT_STYLES.size.lg}`,
 } as const
 
-// Input Styles
+// Input Styles - TEAMITZ Brand
 export const INPUT_STYLES = {
-  base: `border ${BORDER.radius.md} ${SPACING.padding.md} ${TEXT_STYLES.size.base} focus:outline-none focus:ring-2 focus:ring-blue-500`,
-  error: `border-red-500 ${BORDER.radius.md} ${SPACING.padding.md} ${TEXT_STYLES.size.base} focus:outline-none focus:ring-2 focus:ring-red-500`,
+  base: `border border-background-border ${COLORS.background.card} ${BORDER.radius.md} ${SPACING.padding.md} ${TEXT_STYLES.size.base} ${COLORS.text.primary} focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary`,
+  error: `border-red-500 ${COLORS.background.card} ${BORDER.radius.md} ${SPACING.padding.md} ${TEXT_STYLES.size.base} ${COLORS.text.primary} focus:outline-none focus:ring-2 focus:ring-red-500`,
 } as const
 
-// Card Styles
+// Card Styles - TEAMITZ Brand
 export const CARD_STYLES = {
-  base: `${COLORS.background.default} ${BORDER.radius.lg} ${SHADOW.md} ${SPACING.padding.lg}`,
-  hover: `${COLORS.background.default} ${BORDER.radius.lg} ${SHADOW.md} ${SPACING.padding.lg} ${TRANSITION.all} ${TRANSITION.duration.normal} hover:${SHADOW.lg}`,
+  base: `${COLORS.background.card} border border-background-border ${BORDER.radius.lg} ${SHADOW.md} ${SPACING.padding.lg}`,
+  hover: `${COLORS.background.card} border border-background-border ${BORDER.radius.lg} ${SHADOW.md} ${SPACING.padding.lg} ${TRANSITION.all} ${TRANSITION.duration.normal} hover:${SHADOW.lg} hover:border-primary/50`,
+  gradient: `${GRADIENTS.teamitz} ${BORDER.radius.lg} ${SHADOW.md} ${SPACING.padding.lg}`,
 } as const
