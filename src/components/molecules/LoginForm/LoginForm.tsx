@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import Input from '@atoms/Input'
 import Label from '@atoms/Label'
-import { SPACING, BORDER, SHADOW, TEXT_STYLES } from '@/constants'
+import { TEXT_STYLES } from '@/constants'
 
 const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false)
