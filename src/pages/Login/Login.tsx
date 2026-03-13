@@ -29,14 +29,14 @@ const Login: React.FC = () => {
         {/* 왼쪽 - 히어로 섹션 */}
         <div className="relative hidden lg:flex lg:w-1/2">
           {/* 부드러운 그라데이션 오버레이 */}
-          <div className={`absolute inset-0 ${AUTH_STYLES.cardGlowOuter}`} />
+          <div className={`absolute inset-0 ${AUTH_STYLES.heroLeftOverlay}`} />
           <HeroSection />
         </div>
 
         {/* 오른쪽 - 로그인 폼 */}
         <div className="relative flex w-full items-center justify-center px-4 py-8 lg:w-1/2">
           {/* 그라데이션 오버레이 */}
-          <div className="absolute inset-0 bg-gradient-to-l from-[#7C3AED]/6 via-[#7C3AED]/2 to-transparent" />
+          <div className={`absolute inset-0 ${AUTH_STYLES.heroRightOverlay}`} />
           
           <div className="relative z-10 w-full max-w-md">
             {/* 로그인 카드 */}

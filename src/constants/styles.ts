@@ -239,6 +239,10 @@ export const AUTH_STYLES = {
   cardGlowOuter: 'bg-gradient-to-r from-[#2563EB]/10 via-transparent to-[#7C3AED]/10',
   cardGlowInner: 'bg-gradient-to-b from-white/10 to-transparent',
 
+  // 히어로 섹션 그라데이션 오버레이
+  heroLeftOverlay: 'bg-gradient-to-r from-[#2563EB]/6 via-[#2563EB]/2 to-transparent',
+  heroRightOverlay: 'bg-gradient-to-l from-[#7C3AED]/6 via-[#7C3AED]/2 to-transparent',
+
   // 텍스트 색상
   textMuted: 'text-[#94A3B8]',
   textLabel: 'text-[#F8FAFC]',
