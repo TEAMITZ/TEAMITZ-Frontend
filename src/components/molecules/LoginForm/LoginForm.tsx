@@ -26,7 +26,7 @@ const LoginForm: React.FC = () => {
       {/* 환영 메시지 */}
       <div className="relative mb-8">
         <h2 className={`${TEXT_STYLES.size['2xl']} ${TEXT_STYLES.weight.bold} text-white mb-3`}>
-          다시 만나서 반가워요
+          다시 만나서 반갑습니다
         </h2>
         <p className={`${TEXT_STYLES.size.sm} ${TEXT_STYLES.leading.relaxed} text-[#94A3B8]`}>
           팀을 찾고, 프로젝트를 제출하고, 결과를 확인하는
