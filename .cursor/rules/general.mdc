@@ -1,0 +1,107 @@
+---
+alwaysApply: true
+description: TEAMITZ 프로젝트의 일반적인 코딩 컨벤션 및 규칙
+---
+
+# TEAMITZ 일반 코딩 컨벤션
+
+이 프로젝트는 [CONVENTIONS.md](mdc:CONVENTIONS.md)에 정의된 코딩 컨벤션을 따릅니다.
+
+## 코드 포맷팅 규칙
+
+- **Prettier**를 사용하여 자동 포맷팅
+- 세미콜론(`;`) 사용하지 않음
+- 작은따옴표(`'`) 사용
+- 들여쓰기: 2칸 (스페이스)
+- 최대 줄 길이: 100자
+
+## 코드 품질
+
+- **ESLint** 규칙 준수
+- TypeScript strict 모드 사용
+- 사용하지 않는 변수/import 제거
+- `any` 타입 사용 지양
+
+## 네이밍 컨벤션
+
+### 파일명
+- **컴포넌트**: PascalCase (예: `Button.tsx`, `UserProfile.tsx`)
+- **유틸리티/헬퍼**: camelCase (예: `formatDate.ts`, `validateEmail.ts`)
+- **타입 정의**: camelCase (예: `userTypes.ts`, `apiTypes.ts`)
+- **상수**: UPPER_SNAKE_CASE (예: `API_ENDPOINTS.ts`)
+- **스토어**: camelCase with `use` prefix (예: `useAuthStore.ts`)
+
+### 변수 및 함수
+- **변수**: camelCase (예: `userName`, `isLoading`)
+- **함수**: camelCase (예: `handleSubmit`, `fetchUserData`)
+- **상수**: UPPER_SNAKE_CASE (예: `MAX_RETRY_COUNT`, `API_BASE_URL`)
+- **Boolean 변수**: `is`, `has`, `should` prefix 사용 (예: `isLoading`, `hasError`)
+
+### 타입 및 인터페이스
+- **인터페이스**: PascalCase (예: `User`, `ApiResponse`)
+- **타입 별칭**: PascalCase (예: `UserStatus`, `ApiError`)
+- **제네릭**: 단일 대문자 (예: `T`, `K`, `V`)
+
+## Import 순서
+
+1. React 및 라이브러리
+2. 타입 import (`import type`)
+3. 내부 컴포넌트/유틸리티 (Path Alias 사용)
+4. 상대 경로 import
+
+예시:
+```tsx
+import React from 'react'
+import { useRouter } from 'react-router-dom'
+import type { User } from '@/types'
+import Button from '@atoms/Button'
+import { formatDate } from '@/utils'
+```
+
+## Path Alias
+
+프로젝트에서 사용 가능한 경로 별칭:
+- `@/*` - src 폴더
+- `@atoms/*` - atoms 컴포넌트
+- `@molecules/*` - molecules 컴포넌트
+- `@organisms/*` - organisms 컴포넌트
+- `@templates/*` - templates 컴포넌트
+- `@pages/*` - pages
+- `@stores/*` - Zustand stores
+- `@api/*` - API 함수
+- `@utils/*` - 유틸리티 함수
+- `@types/*` - 타입 정의
+- `@constants/*` - 상수 정의 (스타일, 색상 등)
+
+## 주석 규칙
+
+- **한국어 주석 허용**
+- 복잡한 로직에만 주석 작성
+- JSDoc 스타일 주석 권장
+
+```typescript
+/**
+ * 사용자 정보를 가져옵니다.
+ * @param userId - 사용자 ID
+ * @returns 사용자 정보
+ */
+export const getUser = async (userId: string): Promise<User> => {
+  // ...
+}
+```
+
+## 에러 처리
+
+- API 호출은 try-catch 사용
+- 사용자에게 명확한 에러 메시지 제공
+- 콘솔 에러 로깅
+
+```typescript
+try {
+  const user = await getUser(userId)
+  // ...
+} catch (error) {
+  console.error('Failed to fetch user:', error)
+  // 에러 처리
+}
+```

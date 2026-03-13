@@ -1,0 +1,161 @@
+---
+globs: *.tsx,*.css
+description: Tailwind CSS 스타일링 규칙
+---
+
+# Tailwind CSS 스타일링 규칙
+
+이 프로젝트는 **Tailwind CSS**를 사용합니다. [CONVENTIONS.md](mdc:CONVENTIONS.md)의 스타일링 섹션을 참고하세요.
+
+## 기본 규칙
+
+1. **색상 및 스타일은 상수로 관리**
+2. **인라인 클래스 사용**
+3. **커스텀 클래스는 `@apply` 지시어 사용 지양**
+4. **반복되는 스타일은 컴포넌트로 추출**
+5. **반응형 디자인: 모바일 퍼스트**
+
+## 스타일 상수 사용 (필수)
+
+모든 색상, 텍스트 스타일, 간격 등은 [src/constants/styles.ts](mdc:src/constants/styles.ts)에서 정의된 상수를 사용해야 합니다.
+
+### 사용 가능한 상수
+
+- `COLORS` - 색상 관련 클래스
+- `TEXT_STYLES` - 텍스트 스타일 (크기, 굵기, 정렬 등)
+- `SPACING` - 간격 (padding, margin, gap)
+- `BORDER` - 테두리 스타일
+- `SHADOW` - 그림자
+- `TRANSITION` - 전환 효과
+- `BUTTON_VARIANTS` - 버튼 변형 스타일
+- `BUTTON_SIZES` - 버튼 크기 스타일
+- `INPUT_STYLES` - 입력 필드 스타일
+- `CARD_STYLES` - 카드 스타일
+
+### 예시
+
+```tsx
+import { COLORS, TEXT_STYLES, SPACING, BUTTON_VARIANTS, BORDER, SHADOW } from '@/constants'
+
+// 좋은 예 - 상수 사용
+<button className={`${BUTTON_VARIANTS.primary} ${SPACING.padding.md}`}>
+  버튼
+</button>
+
+<div className={`${COLORS.background.default} ${SPACING.padding.lg} ${TEXT_STYLES.size.base}`}>
+  내용
+</div>
+
+<card className={`${CARD_STYLES.base} ${SHADOW.md}`}>
+  카드 내용
+</card>
+
+// 나쁜 예 - 하드코딩
+<button className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2">
+  버튼
+</button>
+```
+
+### 상수 조합
+
+여러 상수를 조합하여 사용할 수 있습니다:
+
+```tsx
+import { COLORS, TEXT_STYLES, SPACING, BORDER, SHADOW } from '@/constants'
+
+<div className={`
+  flex items-center
+  ${SPACING.padding.lg}
+  ${COLORS.background.default}
+  ${BORDER.radius.lg}
+  ${SHADOW.md}
+  ${TEXT_STYLES.size.base}
+`}>
+  내용
+</div>
+```
+
+## 클래스 순서
+
+Tailwind 클래스를 다음 순서로 작성하세요:
+
+1. **레이아웃** (display, position, flex, grid)
+2. **크기** (width, height, padding, margin)
+3. **스타일** (background, border, color)
+4. **효과** (shadow, transition, transform)
+
+### 예시
+
+```tsx
+// 좋은 예
+<div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
+  {/* content */}
+</div>
+
+// 나쁜 예 (순서가 섞임)
+<div className="bg-white flex p-4 shadow-md items-center rounded-lg justify-between">
+  {/* content */}
+</div>
+```
+
+## 반응형 디자인
+
+모바일 퍼스트 접근 방식을 사용합니다:
+
+```tsx
+<div className="
+  text-sm          // 모바일 (기본)
+  md:text-base     // 태블릿 이상
+  lg:text-lg       // 데스크톱 이상
+">
+```
+
+## 조건부 클래스
+
+조건부 클래스는 템플릿 리터럴이나 clsx 같은 유틸리티 사용:
+
+```tsx
+// 간단한 경우
+<button className={`btn ${isActive ? 'btn-active' : 'btn-inactive'}`}>
+
+// 복잡한 경우 (clsx 권장)
+import clsx from 'clsx'
+
+<button className={clsx(
+  'btn',
+  {
+    'btn-active': isActive,
+    'btn-disabled': isDisabled,
+  }
+)}>
+```
+
+## 컴포넌트 스타일링
+
+- 컴포넌트 Props로 className 전달 가능하도록 구현
+- 기본 스타일은 상수에서 가져와 사용
+- 기본 스타일과 커스텀 스타일 병합
+
+```tsx
+import { BUTTON_VARIANTS, SPACING } from '@/constants'
+
+export interface ButtonProps {
+  className?: string
+  // ...
+}
+
+const Button: React.FC<ButtonProps> = ({ className = '', ...props }) => {
+  return (
+    <button className={`${BUTTON_VARIANTS.primary} ${SPACING.padding.md} ${className}`} {...props} />
+  )
+}
+```
+
+실제 예시는 [src/components/atoms/Button/Button.tsx](mdc:src/components/atoms/Button/Button.tsx)를 참고하세요.
+
+## Best Practices
+
+- 긴 클래스 목록은 여러 줄로 나누기
+- 공통 스타일은 컴포넌트로 추출
+- Tailwind의 유틸리티 클래스 우선 사용
+- 커스텀 CSS는 최소화

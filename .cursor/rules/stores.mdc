@@ -1,0 +1,60 @@
+---
+globs: **/stores/**/*.ts
+description: Zustand 상태 관리 스토어 작성 규칙
+---
+
+# Zustand 스토어 작성 규칙
+
+이 프로젝트는 **Zustand**를 상태 관리 라이브러리로 사용합니다. [CONVENTIONS.md](mdc:CONVENTIONS.md)의 상태 관리 섹션을 참고하세요.
+
+## 스토어 파일 규칙
+
+1. **스토어 파일명**: `use{StoreName}Store.ts` (예: `useAuthStore.ts`)
+2. **스토어명**: `use{StoreName}Store` (예: `useAuthStore`)
+3. **스토어는 `src/stores/` 폴더에 위치**
+4. **`src/stores/index.ts`에서 export**
+
+## 스토어 구조
+
+```typescript
+import { create } from 'zustand'
+
+interface StoreNameState {
+  // State properties
+  // Actions
+}
+
+export const useStoreNameStore = create<StoreNameState>((set) => ({
+  // Initial state
+  // Actions implementation
+}))
+```
+
+## 스토어 예시
+
+[src/stores/useAuthStore.ts](mdc:src/stores/useAuthStore.ts) 파일을 참고하세요.
+
+## 네이밍 규칙
+
+- State 인터페이스: `{StoreName}State` (예: `AuthState`)
+- 스토어 hook: `use{StoreName}Store` (예: `useAuthStore`)
+- Action 함수: 동사로 시작 (예: `login`, `logout`, `updateUser`)
+
+## 스토어 사용
+
+```typescript
+import { useAuthStore } from '@stores'
+
+const MyComponent = () => {
+  const { user, login, logout } = useAuthStore()
+  
+  // ...
+}
+```
+
+## Best Practices
+
+- 스토어는 도메인별로 분리
+- 복잡한 로직은 스토어 내부에 구현
+- localStorage와의 동기화는 스토어 내부에서 처리
+- 타입 안정성 유지

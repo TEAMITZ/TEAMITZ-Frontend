@@ -1,0 +1,90 @@
+---
+globs: **/api/**/*.ts
+description: API 호출 함수 작성 규칙
+---
+
+# API 호출 규칙
+
+이 프로젝트는 **Axios**를 HTTP 클라이언트로 사용합니다. [CONVENTIONS.md](mdc:CONVENTIONS.md)의 API 호출 섹션을 참고하세요.
+
+## 파일 구조
+
+- API 함수는 `src/api/` 폴더에 위치
+- 도메인별로 파일 분리 (예: `auth.ts`, `hackathon.ts`)
+- Axios 인스턴스는 `src/api/axios.ts`에서 관리
+
+## Axios 인스턴스 사용
+
+[src/api/axios.ts](mdc:src/api/axios.ts)에서 정의된 `apiClient`를 사용하세요.
+
+```typescript
+import apiClient from './axios'
+// 또는
+import { apiClient } from '@api'
+```
+
+## 함수 네이밍 규칙
+
+함수명: `{action}{Resource}` (예: `getUser`, `createHackathon`, `updateTeam`)
+
+HTTP 메서드별 prefix:
+- **GET**: `get`, `fetch` (예: `getUser`, `fetchHackathons`)
+- **POST**: `create`, `post` (예: `createUser`, `postComment`)
+- **PUT**: `update`, `put` (예: `updateUser`, `putSettings`)
+- **DELETE**: `delete`, `remove` (예: `deleteUser`, `removeTeam`)
+
+## API 함수 구조
+
+```typescript
+import apiClient from './axios'
+import type { User, CreateUserRequest } from '@/types'
+
+export const getUser = async (id: string): Promise<User> => {
+  const response = await apiClient.get(`/users/${id}`)
+  return response.data
+}
+
+export const createUser = async (data: CreateUserRequest): Promise<User> => {
+  const response = await apiClient.post('/users', data)
+  return response.data
+}
+
+export const updateUser = async (id: string, data: Partial<User>): Promise<User> => {
+  const response = await apiClient.put(`/users/${id}`, data)
+  return response.data
+}
+
+export const deleteUser = async (id: string): Promise<void> => {
+  await apiClient.delete(`/users/${id}`)
+}
+```
+
+## 타입 정의
+
+- 요청 타입: `{Action}{Resource}Request` (예: `CreateUserRequest`, `UpdateTeamRequest`)
+- 응답 타입: 도메인 타입 사용 (예: `User`, `Hackathon`)
+- 모든 함수는 Promise를 반환하고 타입을 명시
+
+## 에러 처리
+
+- API 호출은 try-catch 사용
+- 사용자에게 명확한 에러 메시지 제공
+- 콘솔 에러 로깅
+
+```typescript
+try {
+  const user = await getUser(userId)
+  // 성공 처리
+} catch (error) {
+  console.error('Failed to fetch user:', error)
+  // 에러 처리 (사용자에게 알림 등)
+  throw error
+}
+```
+
+## Best Practices
+
+- 도메인별로 파일 분리
+- 타입 안정성 유지
+- 에러 처리 일관성 유지
+- Path Alias 사용 (`@api`, `@types`)

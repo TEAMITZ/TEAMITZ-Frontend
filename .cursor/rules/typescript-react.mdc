@@ -1,0 +1,88 @@
+---
+globs: *.ts,*.tsx
+description: TypeScript 및 React 파일 작성 규칙
+---
+
+# TypeScript & React 코딩 규칙
+
+## 타입 정의
+
+### 위치
+- 공통 타입: `src/types/index.ts`
+- 컴포넌트별 타입: 컴포넌트 파일 내부 또는 같은 폴더의 `types.ts`
+
+### 네이밍 및 사용
+- 인터페이스는 PascalCase로 명명
+- 타입 별칭도 PascalCase로 명명
+- `any` 타입 사용 지양
+- 제네릭은 단일 대문자 사용 (예: `T`, `K`, `V`)
+
+```typescript
+// 인터페이스
+export interface User {
+  id: string
+  name: string
+  email: string
+}
+
+// 타입 별칭
+export type UserStatus = 'active' | 'inactive' | 'pending'
+
+// 제네릭 타입
+export type ApiResponse<T> = {
+  data: T
+  status: number
+  message: string
+}
+```
+
+## React 컴포넌트 작성
+
+### 기본 규칙
+- 함수형 컴포넌트만 사용
+- `React.FC` 타입 사용
+- Props는 인터페이스로 정의
+- 컴포넌트명과 파일명 일치
+- `export default` 사용
+
+### 컴포넌트 구조
+
+```tsx
+import React from 'react'
+
+export interface ComponentNameProps {
+  // Props 타입 정의
+}
+
+const ComponentName: React.FC<ComponentNameProps> = ({
+  // Props destructuring
+}) => {
+  // Hooks
+  // Handlers
+  // Render
+  return (
+    // JSX
+  )
+}
+
+export default ComponentName
+```
+
+## 타입 안정성
+
+- TypeScript strict 모드 사용
+- 모든 함수의 반환 타입 명시
+- Props 타입은 항상 인터페이스로 정의
+- 이벤트 핸들러는 적절한 타입 사용
+
+```tsx
+// 좋은 예
+const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  // ...
+}
+
+// 나쁜 예
+const handleClick = (e: any) => {
+  // ...
+}
+```

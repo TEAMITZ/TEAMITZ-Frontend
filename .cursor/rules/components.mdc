@@ -1,0 +1,114 @@
+---
+globs: **/components/**/*.tsx,**/pages/**/*.tsx
+description: React 컴포넌트 작성 규칙 및 아토믹 디자인 패턴
+---
+
+# 컴포넌트 작성 규칙
+
+이 프로젝트는 **아토믹 디자인 패턴**을 따릅니다. [CONVENTIONS.md](mdc:CONVENTIONS.md)의 컴포넌트 작성 규칙을 참고하세요.
+
+## 아토믹 디자인 구조
+
+```
+src/components/
+├── atoms/          # 가장 작은 단위의 컴포넌트 (Button, Input 등)
+├── molecules/      # atoms를 조합한 컴포넌트 (Form, Card 등)
+├── organisms/      # molecules와 atoms를 조합한 복잡한 컴포넌트 (Header, Sidebar 등)
+└── templates/      # organisms를 배치한 레이아웃
+```
+
+## 컴포넌트 폴더 구조
+
+각 컴포넌트는 자체 폴더를 가지며, 다음 구조를 따릅니다:
+
+```
+ComponentName/
+├── ComponentName.tsx       # 메인 컴포넌트 파일
+├── ComponentName.test.tsx   # 테스트 파일 (선택사항)
+├── ComponentName.stories.tsx # Storybook 파일 (선택사항)
+└── index.ts                # export 파일
+```
+
+## 컴포넌트 작성 규칙
+
+### 기본 구조
+
+```tsx
+import React from 'react'
+
+export interface ComponentNameProps {
+  // Props 타입 정의
+}
+
+const ComponentName: React.FC<ComponentNameProps> = ({
+  // Props destructuring with defaults
+}) => {
+  // Hooks
+  // Handlers
+  // Render
+  return (
+    // JSX
+  )
+}
+
+export default ComponentName
+```
+
+### 필수 규칙
+
+1. **함수형 컴포넌트만 사용**
+2. **React.FC 타입 사용**
+3. **Props는 인터페이스로 정의** (`{ComponentName}Props` 형식)
+4. **컴포넌트명과 파일명 일치**
+5. **export default 사용**
+6. **index.ts에서 re-export**
+
+### Props 네이밍
+
+- Props 인터페이스: `{ComponentName}Props` (예: `ButtonProps`, `UserCardProps`)
+- HTML 속성 확장 시 `React.HTMLAttributes` 또는 구체적인 타입 사용
+
+```tsx
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary'
+  isLoading?: boolean
+}
+```
+
+### 컴포넌트 예시
+
+[src/components/atoms/Button/Button.tsx](mdc:src/components/atoms/Button/Button.tsx) 파일을 참고하세요.
+
+## 컴포넌트 분류 가이드
+
+### Atoms (atoms/)
+- 재사용 가능한 가장 작은 단위의 컴포넌트
+- 예: Button, Input, Label, Icon
+- 다른 컴포넌트에 의존하지 않음
+
+### Molecules (molecules/)
+- Atoms를 조합한 컴포넌트
+- 예: SearchForm, UserCard, NavigationItem
+- 하나의 기능을 수행
+
+### Organisms (organisms/)
+- Molecules와 Atoms를 조합한 복잡한 컴포넌트
+- 예: Header, Sidebar, ProductList
+- 독립적인 기능 영역
+
+### Templates (templates/)
+- Organisms를 배치한 레이아웃
+- 예: MainLayout, AuthLayout
+- 페이지 구조 정의
+
+## 컴포넌트 사용 시 Path Alias 활용
+
+```tsx
+// 좋은 예
+import Button from '@atoms/Button'
+import UserCard from '@molecules/UserCard'
+import Header from '@organisms/Header'
+
+// 나쁜 예
+import Button from '../../../components/atoms/Button/Button'
+```
